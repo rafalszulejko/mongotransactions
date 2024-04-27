@@ -13,8 +13,4 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 @Document("a")
 public class EntityA {
   @Id private String id;
-
-  @ReadOnlyProperty
-  @DocumentReference(lookup = "{'entityAId':?#{#self._id} }")
-  private List<EntityB> entityBs;
 }

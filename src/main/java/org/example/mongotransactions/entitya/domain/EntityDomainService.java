@@ -1,15 +1,18 @@
 package org.example.mongotransactions.entitya.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
 public class EntityDomainService {
 
-  private final EntityARepository repository;
-  private final EntityBRepository entityBRepository;
+  private final EntityAMongoRepository repository;
 
-  EntityDomainService(EntityARepository repository, EntityBRepository entityBRepository) {
+  @Autowired
+  EntityDomainService(EntityAMongoRepository repository) {
     this.repository = repository;
-    this.entityBRepository = entityBRepository;
   }
 
   public EntityA register(EntityA arg) {
@@ -20,7 +23,6 @@ public class EntityDomainService {
     return repository.findById(id).orElseThrow();
   }
 
-  @Transactional
   public void transactionalAdd(String id1, String id2) {
     repository.save(EntityA.builder().id(id1).build());
     fail();

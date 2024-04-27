@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableMongoRepositories()
+@EnableMongoRepositories
 @EnableTransactionManagement
 class ApplicationConfiguration extends AbstractMongoClientConfiguration {
   @Value("${mongodb.host:localhost}")

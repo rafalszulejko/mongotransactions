@@ -12,18 +12,15 @@ import spock.lang.Specification
 @ContextConfiguration(classes = [MongoDBContainerTestConfiguration.class])
 class EntityADomainSpec extends Specification {
 
-	@Autowired EntityAMongoRepository simulationRepository
-	@Autowired EntityBMongoRepository plotRepository
-
+	@Autowired EntityAMongoRepository entityARepository
 	EntityDomainService service
 
 	def setup() {
-		service = new EntityDomainConfiguration().domainService(simulationRepository, plotRepository)
+		service = new EntityDomainService(entityARepository)
 	}
 
 	def cleanup() {
-		simulationRepository.deleteAll()
-		plotRepository.deleteAll()
+		entityARepository.deleteAll()
 	}
 
 	def "simulation should be registered"() {
@@ -40,6 +37,6 @@ class EntityADomainSpec extends Specification {
 
 		then:
 		thrown(RuntimeException)
-		!simulationRepository.existsById("abc")
+		!entityARepository.existsById("abc")
 	}
 }
